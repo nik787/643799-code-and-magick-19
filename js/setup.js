@@ -1,6 +1,8 @@
 // Файл setup.js
 'use strict';
 
+var quantityWizards = 4;
+
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
@@ -32,28 +34,20 @@ var generateColor = function (arr) {
   return arr[getRandomInt(0, arr.length)];
 };
 
-var wizards = [
-  {
-    name: generateName(WIZARD_NAMES, WIZARD_SURNAMES),
-    coatColor: generateColor(COAT_COLORS),
-    eyesColor: generateColor(EYES_COLORS)
-  },
-  {
-    name: generateName(WIZARD_NAMES, WIZARD_SURNAMES),
-    coatColor: generateColor(COAT_COLORS),
-    eyesColor: generateColor(EYES_COLORS)
-  },
-  {
-    name: generateName(WIZARD_NAMES, WIZARD_SURNAMES),
-    coatColor: generateColor(COAT_COLORS),
-    eyesColor: generateColor(EYES_COLORS)
-  },
-  {
-    name: generateName(WIZARD_NAMES, WIZARD_SURNAMES),
-    coatColor: generateColor(COAT_COLORS),
-    eyesColor: generateColor(EYES_COLORS)
+var createWizards = function () {
+  var wizards = [];
+
+  for (var i = 0; i < quantityWizards; i++) {
+    wizards[i] = {
+      name: generateName(WIZARD_NAMES, WIZARD_SURNAMES),
+      coatColor: generateColor(COAT_COLORS),
+      eyesColor: generateColor(EYES_COLORS)
+    }
   }
-];
+  return wizards;
+};
+
+var wizards = createWizards();
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
