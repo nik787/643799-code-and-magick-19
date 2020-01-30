@@ -42,7 +42,7 @@ var createWizards = function () {
       name: generateName(WIZARD_NAMES, WIZARD_SURNAMES),
       coatColor: generateColor(COAT_COLORS),
       eyesColor: generateColor(EYES_COLORS)
-    }
+    };
   }
   return wizards;
 };
