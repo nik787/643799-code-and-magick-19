@@ -51,19 +51,20 @@ window.renderStatistics = function (ctx, names, times) {
 
   var maxTime = getMaxElement(times);
 
-  for (var i = 0; i < names.length; i++, BAR_X += BAR_GAP) {
+  for (var i = 0; i < names.length; i++) {
     var time = Math.floor(times[i]);
     var barHeight = (MAX_BAR_HEIGHT * time) / maxTime;
     if (names[i] === 'Вы') {
-      var color = 'rgba(255, 0, 0, 1)';
+      var colorBar = 'rgba(255, 0, 0, 1)';
     } else {
-      var percent = (100 * barHeight) / MAX_BAR_HEIGHT;
-      color = 'hsl(240, ' + percent + '%, 50%)';
+      var saturationColor = (100 * barHeight) / MAX_BAR_HEIGHT;
+      colorBar = 'hsl(240, ' + saturationColor + '%, 50%)';
     }
 
     renderText(ctx, BAR_X, BAR_Y + barHeight - GAP, FONT, FONT_COLOR, time);
-    renderColumn(ctx, BAR_X, BAR_Y, barHeight, color);
+    renderColumn(ctx, BAR_X, BAR_Y, barHeight, colorBar);
     renderText(ctx, BAR_X, BAR_Y + FONT_GAP, FONT, FONT_COLOR, names[i]);
+    BAR_X += BAR_GAP;
   }
 
 };
