@@ -15,9 +15,15 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
+var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+
 var userDialog = document.querySelector('.setup');
 var userDialogOpen = document.querySelector('.setup-open');
 var userDialogClose = userDialog.querySelector('.setup-close');
+var userWizard = userDialog.querySelector('.setup-wizard');
+var userWizardCoat = userWizard.querySelector('.wizard-coat');
+var userWizardEyes = userWizard.querySelector('.wizard-eyes');
+var userWizardFireball = userDialog.querySelector('.setup-fireball-wrap');
 
 var onPopupEscPress = function (evt) {
   if (evt.key === ESC_KEY && evt.target && !evt.target.matches('input')) {
@@ -106,5 +112,20 @@ for (var i = 0; i < wizards.length; i++) {
   fragment.appendChild(renderWizard(wizards[i]));
 }
 similarListElement.appendChild(fragment);
+
+var onChangeColor = function (element, prop, colorArr) {
+  element.style = prop + ': ' + generateColor(colorArr);
+};
+
+var onClickElement = function (element, prop, colorArr) {
+  element.addEventListener('click', function () {
+    onChangeColor(element, prop, colorArr);
+  });
+};
+
+onClickElement(userWizardCoat, 'fill', COAT_COLORS);
+onClickElement(userWizardEyes, 'fill', EYES_COLORS);
+onClickElement(userWizardFireball, 'background-color', FIREBALL_COLORS);
+
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
