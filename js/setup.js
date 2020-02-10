@@ -47,6 +47,7 @@ var closePopup = function () {
 
 userDialogOpen.addEventListener('click', function () {
   openPopup();
+  document.removeEventListener('keydown', openPopup);
 });
 
 userDialogOpen.addEventListener('keydown', function (evt) {
@@ -121,25 +122,21 @@ var onChangeColor = function (element, prop, colorArr) {
   element.style = prop + ': ' + generateColor(colorArr);
 };
 
-var onClickElement = function (element, prop, colorArr) {
-  element.addEventListener('click', function () {
+var clickElement = function (element, prop, colorArr) {
+  element.addEventListener('click', function (evt) {
     onChangeColor(element, prop, colorArr);
+    if (evt.target && evt.target.matches('.wizard-coat')) {
+      inputCoat.value = evt.target.style.fill;
+    } else if (evt.target && evt.target.matches('.wizard-eyes')) {
+      inputEyes.value = evt.target.style.fill;
+    } else if (evt.target && evt.target.matches('.setup-fireball-wrap')) {
+      inputFireball.value = evt.target.style.background;
+    }
   });
 };
 
-onClickElement(userWizardCoat, 'fill', COAT_COLORS);
-onClickElement(userWizardEyes, 'fill', EYES_COLORS);
-onClickElement(userWizardFireball, 'background', FIREBALL_COLORS);
-
-var filterChangeHandler = function (evt) {
-  if (evt.target && evt.target.matches('.wizard-coat')) {
-    inputCoat.value = evt.target.style.fill;
-  } else if (evt.target && evt.target.matches('.wizard-eyes')) {
-    inputEyes.value = evt.target.style.fill;
-  } else if (evt.target && evt.target.matches('.setup-fireball-wrap')) {
-    inputFireball.value = evt.target.style.background;
-  }
-};
-userForm.addEventListener('click', filterChangeHandler);
+clickElement(userWizardCoat, 'fill', COAT_COLORS);
+clickElement(userWizardEyes, 'fill', EYES_COLORS);
+clickElement(userWizardFireball, 'background', FIREBALL_COLORS);
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
